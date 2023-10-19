@@ -1,0 +1,6 @@
+attributes:
+  admin:
+  id: Código
+  email: Email
+  password: Senha
+  password_confirmation: Confirmação da Senha
