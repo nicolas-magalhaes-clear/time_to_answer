@@ -4,6 +4,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
 
   def index
     @admins = Admin.all
+    @admins = Admin.all .page params[:page]
   end
 
   def new
@@ -26,7 +27,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
       render :index
     end
   end
-  
+
   def edit
   end
 
