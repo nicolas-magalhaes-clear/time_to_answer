@@ -3,4 +3,5 @@
 *= require bootstrap/dist/css/bootstrap
 *= require surface
 *= require welcome
+*= require font-awesome/css/font-awesome
 */
