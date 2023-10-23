@@ -1,70 +1,68 @@
 <script>
+  function validAnswer(questionId){
 
-function validAnswer(questionId){
-  
-  const question = document.querySelector(`#question-${questionId}`)
+    const question = document.querySelector(`#question-${questionId}`)
 
-  const answers = question.querySelectorAll('input[type=radio]')
-  
-  const button = question.querySelector('button')
+    const answers = question.querySelectorAll('input[type=radio]')
 
-  console.log('button', button)
-  
-  console.log('inputs:', answers)
-  
+    const button = question.querySelector('button')
+
+    console.log('button', button)
+
+    console.log('inputs:', answers)
 
 
-  let selectedAnswer;
 
-  answers.forEach(answer => {
-    if(answer.checked){
-      selectedAnswer = answer
+    let selectedAnswer;
+
+    answers.forEach(answer => {
+      if(answer.checked){
+        selectedAnswer = answer
+      }
+    })
+
+    if(selectedAnswer.value === 'true'){
+      button.classList.remove('btn-default')
+      button.classList.remove('btn-danger')
+      button.classList.add('btn-success')
+      $.bootstrapGrowl('Você acertou! \\o/', {
+      type: 'success', // (null, 'info', 'danger', 'success')
+      align: 'right', // ('left', 'right', or 'center')
+      allow_dismiss: true, // If true then will display a cross to close the popup.
+      stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
     }
-  })
+    else{
+      button.classList.remove('btn-default')
+      button.classList.add('btn-danger')
+      button.classList.remove('btn-success')
+      $.bootstrapGrowl('Você errou! :(', {
+      type: 'danger', // (null, 'info', 'danger', 'success')
+      align: 'right', // ('left', 'right', or 'center')
+      allow_dismiss: true, // If true then will display a cross to close the popup.
+      stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+    }
 
-  if(selectedAnswer.value === 'true'){
-    button.classList.remove('btn-default')
-    button.classList.remove('btn-danger')
-    button.classList.add('btn-success')
-    $.bootstrapGrowl('Você acertou! \\o/', {
-    type: 'success', // (null, 'info', 'danger', 'success')
-    align: 'right', // ('left', 'right', or 'center')
-    allow_dismiss: true, // If true then will display a cross to close the popup.
-    stackup_spacing: 10 // spacing between consecutively stacked growls.
-    });
+
+
+
   }
-  else{
-    button.classList.remove('btn-default')
-    button.classList.add('btn-danger')
-    button.classList.remove('btn-success')
-    $.bootstrapGrowl('Você errou! :(', {
-    type: 'danger', // (null, 'info', 'danger', 'success')
-    align: 'right', // ('left', 'right', or 'center')
-    allow_dismiss: true, // If true then will display a cross to close the popup.
-    stackup_spacing: 10 // spacing between consecutively stacked growls.
-    });
-  }
-
-  
-
-
-}
-
 </script>
-
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
-  <% unless params[:term] %>
-    <h3>Últimas perguntas cadastradas...</h3>
-  <% else %>
-    <h3><%= "Resultados  para o termo \"#{params[:term]}\"..."%></h3>
-  <% end %>
+  <h3><%= msg_jumbotron %></h3>
 </div>
 <% @questions.each do |question| %>
-    <%= form_with url: site_answer_path do |form| %>
+  <%= form_with url: site_answer_path do |form| %>
     <div class="panel panel-default" id="question-<%= question.id %>">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= question.description %></h3>
+        <h3 class="panel-title">
+          <span class="label label-info" style="margin-right: 10px;">
+            <%= link_to question.subject.description, site_search_subject_path(question.subject_id, question.subject.description), style:"color: white;" %>
+          </span>
+          <%= question.description %>
+        </h3>
       </div>
       <div class="panel-body">
         <ul>
@@ -77,10 +75,9 @@ function validAnswer(questionId){
                 </label>
               </div>
             </li>
-            
           <% end %>
           <li style="list-style:none;">
-           <button type="button" onClick="validAnswer('<%= question.id %>')"  class="btn btn-default">Responder</button>
+            <button type="button" onClick="validAnswer('<%= question.id %>')"  class="btn btn-default">Responder</button>
           </li>
         </ul>
       </div>
@@ -90,4 +87,3 @@ function validAnswer(questionId){
 <div class="text-center">
   <%= paginate @questions %>
 </div>
- 
