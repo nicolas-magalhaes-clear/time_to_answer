@@ -67,21 +67,26 @@
       </nav>
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <%= yield %>
+        <% unless params[:term] %>
+            <h3>Últimas perguntas cadastradas</h3>
+        <% else %>
+          <h3><%= "Resultados para #{params[:term]}..." %></h3>
+        <% end %>
+          <%= yield %>
+        </div>
       </div>
-    </div>
-    <!-- /container -->
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_include_tag 'site' %>
-    <% if notice %>
-      <%= javascript_tag do %>
-        $.bootstrapGrowl('<%= notice %>', {
-        type: 'success', // (null, 'info', 'danger', 'success')
-        align: 'right', // ('left', 'right', or 'center')
-        allow_dismiss: true, // If true then will display a cross to close the popup.
-        stackup_spacing: 10 // spacing between consecutively stacked growls.
-        });
+      <!-- /container -->
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'site' %>
+      <% if notice %>
+        <%= javascript_tag do %>
+          $.bootstrapGrowl('<%= notice %>', {
+          type: 'success', // (null, 'info', 'danger', 'success')
+          align: 'right', // ('left', 'right', or 'center')
+          allow_dismiss: true, // If true then will display a cross to close the popup.
+          stackup_spacing: 10 // spacing between consecutively stacked growls.
+          });
+        <% end %>
       <% end %>
-    <% end %>
-  </body>
-</html>
+    </body>
+  </html>
