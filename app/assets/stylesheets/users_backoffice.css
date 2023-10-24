@@ -3,4 +3,6 @@
 *= require font-awesome/css/font-awesome
 *= require nprogress/nprogress
 *= require gentelella-custom
+*= require jquery-ui/themes/base/theme
+*= require jquery-ui/themes/base/datepicker
 */
