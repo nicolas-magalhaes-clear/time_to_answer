@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :subjects
     resources :questions
   end
-  devise_for :admins
+  devise_for :admins, :skip => [:registration]
   get 'welcome/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: 'site/welcome#index'
