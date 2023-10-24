@@ -14,6 +14,7 @@ namespace :dev do
       show_spinner("Adicionando administradores extras...") { %x(rails dev:add_extra_admins) }
       show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
       show_spinner("Cadastrando perguntas e respostas...") { %x(rails dev:add_answers_and_questions) }
+      
     else
       puts "Você não está em ambiente de desenvolvimento!"
     end
@@ -69,6 +70,14 @@ namespace :dev do
         elect_true_answer(answers_array)
 
         Question.create!(params[:question])
+      end
+    end
+  end
+  desc "Reseta o contador dos assuntos"
+  task reset_subject_counter: :environment do
+    show_spinner("Resetando contador dos assuntos...") do
+      Subject.find_each do |subject|
+        Subject.reset_counters(subject.id, :questions)
       end
     end
   end
