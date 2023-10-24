@@ -4,5 +4,6 @@
 *= require gentelella-custom
 *= require fastclick/lib/fastclick
 *= require nprogress/nprogress
+*= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
 
 */
