@@ -1,2 +1,4 @@
-class UsersBackoffice::ProfileController < UsersBackoffice
+class UsersBackoffice::ProfileController < UsersBackofficeController
+  def edit
+  end
 end
